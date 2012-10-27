@@ -1,8 +1,9 @@
+package uk.co.johncowie.art.random;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.TreeSet;
 
 public class RandomPixelPicker implements IPixelPicker {
 

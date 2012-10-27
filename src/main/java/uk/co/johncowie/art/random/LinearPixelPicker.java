@@ -1,3 +1,5 @@
+package uk.co.johncowie.art.random;
+
 import java.awt.*;
 
 public class LinearPixelPicker implements IPixelPicker {

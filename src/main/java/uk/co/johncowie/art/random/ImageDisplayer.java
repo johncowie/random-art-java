@@ -1,5 +1,6 @@
+package uk.co.johncowie.art.random;
+
 import javax.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ImageDisplayer extends JFrame {

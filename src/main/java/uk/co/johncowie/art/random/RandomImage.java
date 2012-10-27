@@ -1,3 +1,4 @@
+package uk.co.johncowie.art.random;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,13 +16,9 @@ public class RandomImage extends BufferedImage {
         super(x, y, BufferedImage.TYPE_INT_RGB);
         this.pixelPicker = new LinearPixelPicker(x, y);
         coloured = new boolean[x][y];
-        int count = 0;
         while(this.pixelPicker.hasNext()) {
             Point p = this.pixelPicker.getNextPixel();
-            System.out.println(p.x + ":" + p.y);
             colourPixel(p.x, p.y);
-            count++;
-            System.out.println(count);
         }
 
     }
@@ -74,7 +71,7 @@ public class RandomImage extends BufferedImage {
     private int normalise(int number) {
         if(number > 255) {
             int val =  255 - (number % 255);
-            System.out.println(number + ": "  + val);
+            // System.out.println(number + ": "  + val);
             return val;
         }
         if(number < 0) {

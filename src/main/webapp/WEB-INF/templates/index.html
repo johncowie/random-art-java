@@ -1,0 +1,186 @@
+<!DOCTYPE html5>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Month</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/red.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/colours.css" />
+        <script src="/static/js/jquery.js"></script>
+		<script type="text/javascript" th:inline="javascript">
+            // <![CDATA[
+            var cssLinks = document.getElementsByTagName("link");
+            for(var i = 0; i < cssLinks.length; i++) {
+                cssLinks[i].href = cssLinks[i].href + '?' + new Date();
+            }
+            function changeCSS(cssFile, cssLinkIndex) {
+                var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
+                var newlink = document.createElement("link")
+                newlink.setAttribute("rel", "stylesheet");
+                newlink.setAttribute("type", "text/css");
+                newlink.setAttribute("href", cssFile);
+                document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink);
+            }
+            // ]]>
+		</script>
+    </head>
+    <body>
+        <div id="container">
+			<div id="colourBar">
+				<table id="colourTable" >
+					<tr>
+						<td class="red" ></td>
+						<td class="blue" ></td>
+						<td class="yellow" ></td>
+						<td class="green" ></td>
+						<td class="orange" ></td>
+                    </tr>
+				</table>
+			</div>
+            <script type="text/javascript" th:inline="javascript">
+                // <![CDATA[
+                $('td.red')[0].onclick = function() {changeCSS('/static/css/red.css?' + new Date(), 1); $('.nuotl')[0].src='/static/images/alpha_white.png'};
+                $('td.blue')[0].onclick = function() {changeCSS('/static/css/blue.css?' + new Date(), 1); $('.nuotl')[0].src='/static/images/alpha_red.png'};
+                $('td.green')[0].onclick = function() {changeCSS('/static/css/green.css?' + new Date(), 1); $('.nuotl')[0].src='/static/images/alpha_red.png'};
+                $('td.yellow')[0].onclick = function() {changeCSS('/static/css/yellow.css?' + new Date(), 1); $('.nuotl')[0].src='/static/images/alpha_red.png'};
+                $('td.orange')[0].onclick = function() {changeCSS('/static/css/orange.css?' + new Date(), 1); $('.nuotl')[0].src='/static/images/alpha_red.png'};
+
+                // ]]>
+            </script>
+            <div id="topBar" class="mainColour">
+                <img class="nuotl" src="/static/images/alpha_white.png" height="100"/>
+                <div id="whiteBar"></div>
+            </div>
+            <div id="menuBar" class="mainColour">
+                <table id="menuTable" class="menuTable"><tr>
+                <td>
+                    <div id="monthSelect" class="dropdown leftMargin10 rightMargin10">
+                        <p>MONTH</p>
+                        <dl>
+                            <dt>OCT 2012</dt>
+                            <dt>NOV 2012</dt>
+                            <dt>DEC 2012</dt>
+                            <dt>JAN 2013</dt>
+                            <dt>FEB 2013</dt>
+                            <dt>MAR 2013</dt>
+                        </dl>
+                    </div>
+                </td>
+                <td><div id="regionSelect" class="dropdown rightMargin10">
+                    <p>REGION</p>
+                    <dl>
+                        <dt value="">UK</dt>
+                        <dt value=".region-england">England</dt>
+                        <dt value=".region-scotland">Scotland</dt>
+                        <dt value=".region-wales">Wales</dt>
+                    </dl>
+                </div></td>
+                <td><div id="categorySelect" class="dropdown rightMargin10">
+                    <p>CATEGORY</p>
+                    <dl>
+                        <dt value="">All Categories</dt>
+                        <dt value=".category-environment">Environment</dt>
+                        <dt value=".category-economy">Economy</dt>
+                        <dt value=".category-feminism">Feminism</dt>
+                    </dl>
+                </div></td>
+                <td><div id="tweeterSelect" class="dropdown rightMargin10">
+                    <p>USER</p>
+                    <dl>
+                        <dt value="">All Users</dt>
+                        <dt value=".tweeter-rp">Red Pepper</dt>
+                        <dt value=".tweeter-pp">People &#38; Planet</dt>
+                        <dt value=".tweeter-uf">UK Feminista</dt>
+                    </dl>
+                </div></td>
+                </tr></table>
+            </div>
+            <script type="text/javascript">
+                // <![CDATA[
+                $('.dropdown').children('dl').hide()
+                $('.dropdown').each(function(i){
+                    var dl = $(this).children('dl');
+                    $(this).on({
+                        mouseenter: function() {dl.slideDown();},
+                        mouseleave:  function() {dl.stop(); dl.slideUp();}
+                    });
+                    dl.each(function(i) {
+                        $(this).children('dt').each(function(i){
+                            $(this).on({
+                                click: function() {
+                                    dl.children('dt').removeClass('selected');
+                                    $(this).addClass('selected');
+                                    filter();
+                                    dl.hide();
+                                }
+                            });
+                        });
+                    })
+                });
+                function replaceNull(expression) {
+                    var val = expression;
+                    if(val == undefined) { return ''; }
+                    return val;
+                }
+
+                function filter() {
+                    var tweeterSelector = replaceNull($('#tweeterSelect').find('.selected').attr('value'));
+                    var areaSelector = replaceNull($('#regionSelect').find('.selected').attr('value'));
+                    var categorySelector = replaceNull($('#categorySelect').find('.selected').attr('value'));
+                    $('.event').show();
+                    var selectors = tweeterSelector + areaSelector + categorySelector;
+                    if(selectors != "") {
+                        $('.event').not(selectors).hide();
+                    }
+                    hideEmptyTables();
+                }
+
+                function hideEmptyTables() {
+                    $('.events').each(function(i) {
+                        $(this).show(); // make table visible first, so numberofvisiblerows count works
+                        var numberOfVisibleRows = $(this).find('tr:visible').length;
+                        console.log(numberOfVisibleRows);
+                        if(numberOfVisibleRows < 2) {
+                            $(this).hide();
+                        }
+                    })
+                }
+                // ]]>
+            </script>
+            <h1 class="redText">&#x25C0;<span th:text="${month.name}"/>&#x25B6;</h1>
+            <div id="main">
+                <table class="events" th:each="day : ${month.days}">
+                    <tr class="mainColour">
+                        <th colspan="4" th:text="${day.key}"></th>
+                    </tr>
+                    <tr th:each="event : ${day.value.events}" th:class="'lighterColour darkerColourText event ' +
+                    ${event.tweeter.name}  + ' ' + ${event.area.region.id}">
+                        <td class="time" th:text="${event.start_timeFormatted}"></td>
+                        <td class="text" th:utext="${event.html}"></td>
+                        <td class="area" th:text="${event.area.name}"></td>
+                        <td class="tweeter" th:text="${event.tweeter.name}"></td>
+                    </tr>
+                </table>
+                </div>
+                <table class="calendar">
+                    <tr class="mainColour">
+                        <th th:each="h : ${calendar.header}" th:text="${h}"></th>
+                    </tr>
+                    <tr class="lighterColour darkerColourText" th:each="row : ${calendar.table}">
+                        <td th:each="cell : ${row}" th:text="${cell}" th:class="${calendar.getEnabled(cell)} ? 'enabled' : 'disabled'">
+                        </td>
+                    </tr>
+                </table>
+            <div id='bottomBar' class='mainColour'>
+                <!--<div id='copyright'>Design Last Updated: </div> -->
+                <a href="static/about.html">ABOUT</a>
+                <a href="static/developers.html">DEVELOPERS</a>
+                <a href="static/instructions.html">INSTRUCTIONS</a>
+                <a href='static/terms.html'>T&#38;C</a>
+                <a href='static/credits.html'>CREDITS</a>
+            </div>
+        </div>
+    </body>
+</html>

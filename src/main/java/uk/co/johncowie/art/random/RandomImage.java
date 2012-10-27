@@ -9,16 +9,24 @@ public class RandomImage extends BufferedImage {
 
     private boolean[][] coloured;
 
-    private static int maxDeviation = 30;
+    private int maxDeviation;
     private IPixelPicker pixelPicker;
 
-    public RandomImage(int x, int y) {
+    public RandomImage(int x, int y, int maxDeviation) {
         super(x, y, BufferedImage.TYPE_INT_RGB);
-        this.pixelPicker = new LinearPixelPicker(x, y);
+        this.maxDeviation = maxDeviation;
+        int startX = (int)Math.floor(Math.random()*x);
+        int startY = (int)Math.floor(Math.random()*y);
+        this.pixelPicker = new RandomPixelPicker(x, y, new Point(startX, startY));
         coloured = new boolean[x][y];
+        int count = 0;
         while(this.pixelPicker.hasNext()) {
             Point p = this.pixelPicker.getNextPixel();
             colourPixel(p.x, p.y);
+            count++;
+            if(count % 1000 == 0) {
+                System.out.println(count);
+            }
         }
 
     }

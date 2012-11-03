@@ -1,0 +1,100 @@
+<!DOCTYPE html5>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Random Art</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href='http://fonts.googleapis.com/css?family=Asap' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/smoothness/jquery-ui-1.9.1.custom.css" />
+    <script src="/static/js/jquery-1.8.2.js"></script>
+    <script src="/static/js/jquery-ui-1.9.1.custom.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="topbar">
+        Generate:
+    </div>
+    <form th:object="${variables}" th:action="@{generate.html}" method="POST">
+        <fieldset>
+            <div>
+                <label>Width: </label>
+                <input id="width-field" type="text" th:field="*{width}" th:value="${variables.width}" />
+                <div id="width-slider"></div>
+                <script>
+                    $("#width-slider").slider({
+                        min:0,
+                        max:1500,
+                        value:$("#width-field").val(),
+                        slide: function( event, ui ) {
+                            $( "#width-field" ).val( ui.value );
+                        }
+                    });
+                </script>
+            </div>
+            <div>
+                <label>Height: </label>
+                <input id="height-field" type="text" th:field="*{height}" th:value="${variables.height}"/>
+                <div id="height-slider"></div>
+                <script>
+                    $("#height-slider").slider({
+                        min:0,
+                        max:1500,
+                        value:$("#height-field").val(),
+                        slide: function( event, ui ) {
+                            $( "#height-field" ).val( ui.value );
+                        }
+                    });
+                </script>
+            </div>
+            <div>
+                <label>Deviation: </label>
+                <input id="deviation-field" type="text" th:field="*{deviation}" th:value="${variables.deviation}"/>
+                <div id="deviation-slider"></div>
+                <script>
+                    $("#deviation-slider").slider({
+                        min:0,
+                        max:100,
+                        value:$("#deviation-field").val(),
+                        slide: function( event, ui ) {
+                            $( "#deviation-field" ).val( ui.value );
+                        }
+                    });
+                </script>
+            </div>
+            <div>
+                <label>Seed Pixel Colour: </label>
+                <input type="text" th:field="*{seedColour}"/>
+            </div>
+            <div>
+                <label>Seed Pixel Position: </label>
+                <input type="text" th:field="*{seedX}"/>
+                <input type="text" th:field="*{seedY}"/>
+            </div>
+            <div>
+                <label>Seed: </label>
+                <input type="text" th:field="*{seed}"/>
+            </div>
+            <div>
+                <label>Picker: </label>
+                <select th:field="*{picker}">
+                    <option value="1">Linear</option>
+                    <option value="2">Square</option>
+                    <option value="3">Cluster</option>
+                </select>
+            </div>
+            <div class="submit">
+                <button type="submit" name="generate" >Generate</button>
+            </div>
+        </fieldset>
+    </form>
+    <div class="border center" >
+        <a th:href="${'/images/' + id + '.jpeg'}">
+            <img class="center" th:src="${'/images/' + id + '.jpeg'}" />
+        </a>
+    </div>
+
+
+</div>
+</body>
+</html>

@@ -18,10 +18,10 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    
+
     <servlet-mapping>
         <servlet-name>mvc-dispatcher</servlet-name>
-        <url-pattern>/*</url-pattern>
-        <!--<url-pattern>*.html</url-pattern>-->
+        <url-pattern >*.html</url-pattern>
+        <url-pattern>*.jpeg</url-pattern>
     </servlet-mapping>
 </web-app>

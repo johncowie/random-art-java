@@ -12,20 +12,31 @@
     <context:component-scan
             base-package="uk.co.johncowie.art.random" />
 
-    <!--<bean id="templateResolver"-->
-          <!--class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">-->
-        <!--<property name="prefix" value="/WEB-INF/templates/" />-->
-        <!--<property name="suffix" value=".html" />-->
-        <!--<property name="templateMode" value="HTML5" />-->
-    <!--</bean>-->
+    <bean id="templateResolver"
+          class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+        <property name="prefix" value="/WEB-INF/templates/" />
+        <property name="suffix" value=".html" />
+        <property name="templateMode" value="HTML5" />
+        <property name="cacheable" value="false" />
+    </bean>
 
-    <!--<bean id="templateEngine"-->
-          <!--class="org.thymeleaf.spring3.SpringTemplateEngine">-->
-        <!--<property name="templateResolver" ref="templateResolver" />-->
-    <!--</bean>-->
+    <bean id="templateEngine"
+          class="org.thymeleaf.spring3.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver" />
 
-    <!--<bean class="org.thymeleaf.spring3.view.ThymeleafViewResolver">-->
-        <!--<property name="templateEngine" ref="templateEngine" />-->
-    <!--</bean>-->
+    </bean>
+
+    <bean class="org.thymeleaf.spring3.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine" />
+    </bean>
+
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="mediaTypes">
+            <map>
+                <entry key="html" value="text/html"/>
+                <entry key="jpeg" value="image/jpeg"/>
+            </map>
+        </property>
+    </bean>
 
 </beans>

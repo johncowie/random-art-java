@@ -41,6 +41,10 @@ public class ImageRecord {
         creationDate = new Date();
     }
 
+    public String getId() {
+        return id;
+    }
+
     public byte[] getImage() {
         return image;
     }

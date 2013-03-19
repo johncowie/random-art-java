@@ -43,12 +43,4 @@ public class RandomPixelPicker implements PixelPicker {
         }
         return points;
     }
-
-    public static void main(String[] args) {
-        long start = System.currentTimeMillis();
-        System.out.println("Start");
-        new RandomPixelPicker(new Point(0, 0), "Hello").generateOrder(501, 492);
-        System.out.println("End: " + (System.currentTimeMillis() - start));
-    }
-
 }

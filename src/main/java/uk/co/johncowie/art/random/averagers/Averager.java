@@ -1,7 +1,6 @@
 package uk.co.johncowie.art.random.averagers;
 
-import uk.co.johncowie.art.random.AdjacentPixelGatherer.AdjacentPixelGatherer;
-import uk.co.johncowie.art.random.AdjacentPixelGatherer.PixelGatherer;
+import uk.co.johncowie.art.random.gatherers.PixelGatherer;
 import uk.co.johncowie.art.random.RandomImage;
 
 import java.awt.*;

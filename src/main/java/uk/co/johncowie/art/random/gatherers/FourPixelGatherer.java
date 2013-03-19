@@ -1,4 +1,4 @@
-package uk.co.johncowie.art.random.AdjacentPixelGatherer;
+package uk.co.johncowie.art.random.gatherers;
 
 import java.awt.*;
 import java.util.*;

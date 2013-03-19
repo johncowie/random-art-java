@@ -1,17 +1,17 @@
 package uk.co.johncowie.art.random.pickers;
 
-import uk.co.johncowie.art.random.AdjacentPixelGatherer.AdjacentPixelGatherer;
+import uk.co.johncowie.art.random.RandomSet;
+import uk.co.johncowie.art.random.gatherers.AdjacentPixelGatherer;
 import uk.co.johncowie.art.random.numbers.NumberGenerator;
 import uk.co.johncowie.art.random.numbers.StringNumberGenerator;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class RandomPixelPicker implements PixelPicker {
 
-    private int x;
-    private int y;
     private Point start;
     private String seed;
     private NumberGenerator generator;
@@ -26,42 +26,29 @@ public class RandomPixelPicker implements PixelPicker {
     }
 
     @Override
-    public List<Point> generateOrder(int x, int y) {
-        this.x = x;
-        this.y = y;
-        HashSet<Point> adjacentPoints = new HashSet<Point>();
+    public List<Point> generateOrder(int width, int height) {
+        RandomSet<Point> adjacentPoints = new RandomSet<Point>(this.seed);
+        adjacentPoints.insert(this.start);
         HashSet<Point> addedPoints = new HashSet<Point>();
         List<Point> points = new ArrayList<Point>();
-        for(int i = 0; i < x*y; i++){
-            Point nextPoint = getRandomAdjacentPoint(adjacentPoints);
-            if(nextPoint == null) {
-                nextPoint = this.start;
-            }
-            adjacentPoints.remove(nextPoint);
+        for(int i = 0; i < width*height; i++){
+            Point nextPoint = adjacentPoints.removeRandom();
             addedPoints.add(nextPoint);
             points.add(nextPoint);
-            loadAdjacentPoints(nextPoint, adjacentPoints, addedPoints);
+            for(Point point : this.gatherer.getAdjacentPixels(width, height, nextPoint)) {
+                if(!addedPoints.contains(point)) {
+                    adjacentPoints.insert(point);
+                }
+            }
         }
         return points;
     }
 
-    private Point getRandomAdjacentPoint(Set<Point> adjacentPoints) {
-        int rand = (int)Math.floor(this.generator.getRandom(0, adjacentPoints.size()));
-        int count = 0;
-        for(Point point : adjacentPoints) {
-            if(count == rand) {
-                return point;
-            }
-            count++;
-        }
-        return null;
+    public static void main(String[] args) {
+        long start = System.currentTimeMillis();
+        System.out.println("Start");
+        new RandomPixelPicker(new Point(0, 0), "Hello").generateOrder(501, 492);
+        System.out.println("End: " + (System.currentTimeMillis() - start));
     }
 
-    private void loadAdjacentPoints(Point p, Set<Point> adjacentPoints, Set<Point> addedPoints) {
-        for(Point point : this.gatherer.getAdjacentPixels(x, y, p)) {
-            if(!addedPoints.contains(point)) {
-                adjacentPoints.add(point);
-            }
-        }
-    }
 }

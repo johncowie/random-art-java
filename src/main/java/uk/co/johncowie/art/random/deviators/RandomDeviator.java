@@ -1,11 +1,8 @@
 package uk.co.johncowie.art.random.deviators;
 
 import uk.co.johncowie.art.random.numbers.NumberGenerator;
-import uk.co.johncowie.art.random.numbers.StringNumberGenerator;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class RandomDeviator implements Deviator {
 
@@ -42,23 +39,4 @@ public class RandomDeviator implements Deviator {
         }
         return number;
     }
-
-    public static void main(String[] args) {
-        RandomDeviator deviator = new RandomDeviator(new StringNumberGenerator("asdfd"), 3);
-        Map<Integer, Integer> counts = new HashMap<Integer, Integer>();
-        counts.put(-3, 0);
-        counts.put(-2, 0);
-        counts.put(-1, 0);
-        counts.put(0, 0);
-        counts.put(1, 0);
-        counts.put(2, 0);
-        counts.put(3, 0);
-        for(int i = 0; i < 10000; i++) {
-            int d = deviator.getDeviation();
-            System.out.println(d);
-            counts.put(d, counts.get(d)+1);
-        }
-        System.out.println(counts);
-    }
-
 }

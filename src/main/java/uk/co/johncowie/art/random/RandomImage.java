@@ -1,6 +1,6 @@
 package uk.co.johncowie.art.random;
 
-import uk.co.johncowie.art.random.AdjacentPixelGatherer.AdjacentPixelGatherer;
+import uk.co.johncowie.art.random.gatherers.AdjacentPixelGatherer;
 import uk.co.johncowie.art.random.averagers.Averager;
 import uk.co.johncowie.art.random.deviators.Deviator;
 import uk.co.johncowie.art.random.pickers.PixelPicker;

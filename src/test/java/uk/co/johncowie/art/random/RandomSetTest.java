@@ -10,7 +10,7 @@ public class RandomSetTest {
     public void aTest() {
         RandomSet<Integer> rs = new RandomSet<Integer>("bob");
         for(int i = 1; i < 10001; i++) {
-            rs.insert(i);
+            rs.add(i);
             if ((i % 2) == 0) {
                 rs.removeRandom();
             }
@@ -23,11 +23,11 @@ public class RandomSetTest {
         RandomSet<String> rs = new RandomSet<String>("boisad");
         checkSize(rs, 0);
 
-        rs.insert("a");
+        rs.add("a");
         checkSize(rs, 1);
         assertTrue(rs.contains("a"));
 
-        rs.insert("b");
+        rs.add("b");
         checkSize(rs, 2);
         assertTrue(rs.contains("b"));
     }
@@ -35,11 +35,11 @@ public class RandomSetTest {
     @Test
     public void testRemove() {
         RandomSet<String> rs = new RandomSet<String>("sdf");
-        rs.insert("a");
+        rs.add("a");
         rs.remove("a");
-        rs.insert("a");
-        rs.insert("b");
-        rs.insert("c");
+        rs.add("a");
+        rs.add("b");
+        rs.add("c");
 
         rs.remove("b");
         checkSize(rs, 2);
@@ -52,27 +52,17 @@ public class RandomSetTest {
     @Test
     public void testRemoveRandom() {
         RandomSet<String> rs = new RandomSet<String>("sdf");
-        rs.insert("a");
-        rs.insert("b");
-        rs.insert("c");
-        System.out.println(rs);
-        System.out.println(rs.getMap());
+        rs.add("a");
+        rs.add("b");
+        rs.add("c");
         rs.removeRandom();
-        System.out.println(rs);
-        System.out.println(rs.getMap());
         rs.removeRandom();
-        System.out.println(rs);
-        System.out.println(rs.getMap());
         rs.removeRandom();
-        System.out.println(rs);
-        System.out.println(rs.getMap());
         checkSize(rs, 0);
     }
 
     private void checkSize(RandomSet<?> rs, int size) {
         assertEquals(size, rs.size());
-        assertEquals(size, rs.getList().size());
-        assertEquals(size, rs.getMap().size());
     }
 
 }

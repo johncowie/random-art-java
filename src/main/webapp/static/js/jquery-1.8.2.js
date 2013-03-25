@@ -1276,7 +1276,7 @@ jQuery.support = (function() {
 		leadingWhitespace: ( div.firstChild.nodeType === 3 ),
 
 		// Make sure that tbody elements aren't automatically inserted
-		// IE will insert them into empty tables
+		// IE will add them into empty tables
 		tbody: !div.getElementsByTagName("tbody").length,
 
 		// Make sure that link elements get serialized correctly by innerHTML
@@ -6787,7 +6787,7 @@ jQuery.extend({
 		var ret, name,
 			old = {};
 
-		// Remember the old values, and insert the new ones
+		// Remember the old values, and add the new ones
 		for ( name in options ) {
 			old[ name ] = elem.style[ name ];
 			elem.style[ name ] = options[ name ];
@@ -8105,7 +8105,7 @@ function ajaxConvert( s, response ) {
 								if ( conv === true ) {
 									conv = converters[ conv2 ];
 
-								// Otherwise, insert the intermediate dataType
+								// Otherwise, add the intermediate dataType
 								} else if ( converters[ conv2 ] !== true ) {
 									current = tmp[ 0 ];
 									dataTypes.splice( i--, 0, current );

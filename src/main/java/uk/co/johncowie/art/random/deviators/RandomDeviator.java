@@ -8,10 +8,12 @@ public class RandomDeviator implements Deviator {
 
     NumberGenerator generator;
     private int maxDeviation;
+    private int lean;
 
-    public RandomDeviator(NumberGenerator generator, int maxDeviation) {
+    public RandomDeviator(NumberGenerator generator, int maxDeviation, int lean) {
         this.generator = generator;
         this.maxDeviation = maxDeviation;
+        this.lean = lean;
     }
 
     @Override
@@ -27,7 +29,7 @@ public class RandomDeviator implements Deviator {
     }
 
     private int getDeviation() {
-        return (int)Math.round(generator.getRandom(-1*maxDeviation, maxDeviation+1));
+        return generator.getRandomInt(-1*maxDeviation, maxDeviation+lean);
     }
 
     private int normalise(int number) {

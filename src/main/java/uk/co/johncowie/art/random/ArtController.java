@@ -81,7 +81,7 @@ public class ArtController {
         Color seedColour = Color.decode(variables.getSeedColour());
         NumberGenerator generator = new StringNumberGenerator(variables.getSeed());
         PixelPicker picker = PixelPickerFactory.getPixelPicker(variables.getPicker(), start, variables.getSeed());
-        Deviator deviator = new RandomDeviator(generator, variables.getDeviation());
+        Deviator deviator = new RandomDeviator(generator, variables.getDeviation(), variables.getLean());
         BufferedImage image = new RandomImage(variables.getWidth(), variables.getHeight(), deviator, seedColour, picker);
         ImageRecord record = new ImageRecord(image);
         Key<ImageRecord> key = db.getDS().save(record);

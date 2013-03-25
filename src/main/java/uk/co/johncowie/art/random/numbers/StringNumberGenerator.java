@@ -4,15 +4,19 @@ import java.util.Random;
 
 public class StringNumberGenerator implements NumberGenerator {
 
-    Random random;
+    private Random random;
 
     public StringNumberGenerator(String string) {
         random = new Random(string.hashCode());
     }
 
-    public double getRandom(int min, int max) {
-        int range = max-min;
+    public double getRandom(double min, double max) {
+        double range = max-min;
         return (random.nextDouble()*range)+min;
+    }
+
+    public int getRandomInt(int min, int max) {
+        return (int)Math.floor(getRandom((double)min, (double)max+1));
     }
 
 }

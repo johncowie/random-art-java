@@ -28,7 +28,7 @@ public class RandomPixelPicker implements PixelPicker {
     @Override
     public List<Point> generateOrder(int width, int height) {
         RandomSet<Point> adjacentPoints = new RandomSet<Point>(this.seed);
-        adjacentPoints.insert(this.start);
+        adjacentPoints.add(this.start);
         HashSet<Point> addedPoints = new HashSet<Point>();
         List<Point> points = new ArrayList<Point>();
         for(int i = 0; i < width*height; i++){
@@ -37,7 +37,7 @@ public class RandomPixelPicker implements PixelPicker {
             points.add(nextPoint);
             for(Point point : this.gatherer.getAdjacentPixels(width, height, nextPoint)) {
                 if(!addedPoints.contains(point)) {
-                    adjacentPoints.insert(point);
+                    adjacentPoints.add(point);
                 }
             }
         }

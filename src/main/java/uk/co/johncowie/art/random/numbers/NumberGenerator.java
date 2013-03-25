@@ -1,7 +1,5 @@
 package uk.co.johncowie.art.random.numbers;
 
-import java.util.List;
-
 /**
  * Created with IntelliJ IDEA.
  * User: jcowie
@@ -10,6 +8,8 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface NumberGenerator {
-    public double getRandom(int min, int max);
+    public double getRandom(double min, double max);
+
+    public int getRandomInt(int min, int max);
 
 }

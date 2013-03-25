@@ -83,6 +83,14 @@
                     <option value="3">Cluster</option>
                 </select>
             </div>
+            <div>
+                <label>Lean: </label>
+                <select th:field="*{lean}" >
+                    <option value="-1">-1</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                </select>
+            </div>
             <div class="submit">
                 <button type="submit" name="generate" >Generate</button>
             </div>

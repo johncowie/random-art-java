@@ -2,7 +2,7 @@ package uk.co.johncowie.art.random;
 
 import java.util.*;
 
-public class RandomSet<T> {
+public class RandomSet<T> implements Collection<T> {
 
     private final Random random;
     private final Map<T, Integer> map = new HashMap<T, Integer>();
@@ -12,11 +12,38 @@ public class RandomSet<T> {
         this.random = new Random(seed.hashCode());
     }
 
-    public void insert(T val) {
+    public boolean add(T val) {
         if(!map.containsKey(val)) {
             array.add(val);
             map.put(val, array.size() - 1);
+            return true;
         }
+        return false;
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> objects) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> ts) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> objects) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> objects) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void clear() {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public T removeRandom() {
@@ -33,7 +60,8 @@ public class RandomSet<T> {
         return (int)(Math.floor(random.nextDouble()*array.size()));
     }
 
-    public void remove(T t) {
+    @Override
+    public boolean remove(Object t) {
         if(map.containsKey(t)) {
             int pos = map.remove(t);
             T moved = array.get(array.size()-1);
@@ -42,12 +70,12 @@ public class RandomSet<T> {
                 map.put(moved, pos);
             }
             array.remove(array.size()-1);
-        } else {
-            throw new RuntimeException(t + " doesn't exist!");
+            return true;
         }
+        return false;
     }
 
-    public boolean contains(T val) {
+    public boolean contains(Object val) {
         return map.containsKey(val);
     }
 
@@ -55,12 +83,24 @@ public class RandomSet<T> {
         return map.size();
     }
 
-    public List<T> getList() {
-        return new ArrayList<T>(array);
+    @Override
+    public boolean isEmpty() {
+        return map.isEmpty();
     }
 
-    public Map<T, Integer> getMap() {
-        return new HashMap<T, Integer>(map);
+    @Override
+    public Iterator<T> iterator() {
+        return array.iterator();
+    }
+
+    @Override
+    public Object[] toArray() {
+        return array.toArray();
+    }
+
+    @Override
+    public <T> T[] toArray(T[] ts) {
+        return array.toArray(ts);
     }
 
     @Override

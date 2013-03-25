@@ -1,7 +1,5 @@
 package uk.co.johncowie.art.random;
 
-import org.springframework.beans.factory.annotation.Value;
-
 public class Variables {
 
     private Integer width = 300;
@@ -12,6 +10,7 @@ public class Variables {
     private String seedColour = "0xFF0000";
     private int seedX;
     private int seedY;
+    private int lean = 0;
 
     public Integer getWidth() {
         return width;
@@ -75,5 +74,13 @@ public class Variables {
 
     public void setSeedY(int seedY) {
         this.seedY = seedY;
+    }
+
+    public int getLean() {
+        return lean;
+    }
+
+    public void setLean(int lean) {
+        this.lean = lean;
     }
 }

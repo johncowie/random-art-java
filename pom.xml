@@ -11,6 +11,13 @@
 
     <name>Random Art</name>
 
+    <repositories>
+        <repository>
+            <id>morphia</id>
+            <url>http://morphia.googlecode.com/svn/mavenrepo/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
